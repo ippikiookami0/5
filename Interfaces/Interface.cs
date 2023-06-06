@@ -5,6 +5,8 @@ namespace LataPrzestepne.Interfaces
 {
     public interface IHistoryDbService
     {
-        public IQueryable<HistoryDB> GetActivePeople();
+        public List<HistoryDB> HistoryDBList();
+        public void AddHistoryDB(HistoryDB historyDB);
+        //public IQueryable<HistoryDB> GetActivePeople();
     }
 }

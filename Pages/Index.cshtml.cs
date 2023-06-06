@@ -24,24 +24,29 @@ namespace LataPrzestepne.Pages
         public IList<HistoryDB> historyDataList { get; set; }
 
         private readonly IHistoryDbService _HistoryDbService;
-        private readonly DataContext _context;
+        //private readonly DataContext _context;
         public IQueryable<HistoryDB> Records { get; set; }
-        public IndexModel(ILogger<IndexModel> logger, IHistoryDbService HistoryDbService, DataContext context)
+        public IndexModel(ILogger<IndexModel> logger, IHistoryDbService HistoryDbService)
         {
             _logger = logger;
             _HistoryDbService = HistoryDbService;
-            _context = context;
+           // _context = context;
         }
 
         public void OnGet()
         {
-            Records = _HistoryDbService.GetActivePeople();
+            //Records = _HistoryDbService.GetActivePeople();
 
-            var historyDataList = _context.HistoryDB.ToList();
+            var historyDataList = _HistoryDbService.HistoryDBList();
         }
         public IActionResult OnPost() {
-            if(HistoryDB.YearOfBirth < 1899 || HistoryDB.YearOfBirth > 2024) { return base.Page(); }
-            historyDataList = _context.HistoryDB.ToList();
+            if(HistoryDB.YearOfBirth == null) { return Page(); }     
+            if (HistoryDB.YearOfBirth < 1899 || HistoryDB.YearOfBirth > 2022) 
+            {
+                HistoryDB.YearOfBirth = null;
+                return base.Page(); 
+            }
+            historyDataList = _HistoryDbService.HistoryDBList();
             HistoryDB.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             HistoryDB.Time = DateTime.Now;
             if(HistoryDB.Name == null)
@@ -68,8 +73,9 @@ namespace LataPrzestepne.Pages
             {
                 HistoryDB.Result = "To nie byl rok przestepny";
             }
-            _context.HistoryDB.Add(HistoryDB);
-            _context.SaveChanges();
+            //_context.HistoryDB.Add(HistoryDB);
+            //_context.SaveChanges();4
+            _HistoryDbService.AddHistoryDB(HistoryDB);
             return Page();
         
         }

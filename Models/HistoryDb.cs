@@ -11,7 +11,7 @@ namespace LataPrzestepne.Models
         public int Id { get; set; }
 
         [Required]
-        [Range(1899, 2022, ErrorMessage = "Oczekiwany rok {0} z zakresu {1} i {2}.")]
+        [Range(1899, 2022, ErrorMessage = "Oczekiwany rok z zakresu {1} i {2}.")]
         public int? YearOfBirth { get; set; }
 
         public string Result { get; set; }
@@ -23,6 +23,6 @@ namespace LataPrzestepne.Models
 
         public DateTime Time { get; set; }
 
-        public bool IsActive { get; set; }
+        //public bool IsActive { get; set; }
     }
 }

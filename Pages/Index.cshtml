@@ -23,21 +23,12 @@
         </form>
     </div>
     <br>
-    <!--<div id="dane">
+    <div id="dane">
         @if (Model.HistoryDB != null)
         {
             <p>
                 @Model.HistoryDB.YearOfBirth @Model.HistoryDB.Result
             </p>        
         }
-    </div>-->
-    <div class="text-center">
-    <p>W bazie jest @Model.Records.Count() obiektów. Lista aktywnych osób:</p>
-            
-    @foreach (var item in Model.Records)
-    {
-        <p>@item.Name @item.YearOfBirth</p>
-    }
     </div>
-
 </div>

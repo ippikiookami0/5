@@ -26,9 +26,7 @@ namespace LataPrzestepne.Models
             IQueryable<T> source, int pageIndex, int pageSize)
         {
             var count = source.Count();
-            var items = source.Skip(
-                (pageIndex - 1) * pageSize)
-                .Take(pageSize).ToList();
+            var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return new HistoryList<T>(items, count, pageIndex, pageSize);
         }
     }
